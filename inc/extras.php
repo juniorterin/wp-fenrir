@@ -37,3 +37,19 @@ function wp_fenrir_pingback_header() {
 	}
 }
 add_action( 'wp_head', 'wp_fenrir_pingback_header' );
+
+// WP Fenrir plugins dependencies
+
+add_action( 'admin_notices', 'wp_fenrir_plugin_dependencies' );
+
+function wp_fenrir_plugin_dependencies() {
+
+	function requireDependency($name, $path, $slug) {
+		if( !is_plugin_active( $path ) ) { ?>
+			<div class="error"><p>Você precisa  <a href="<?php echo get_admin_url(); ?>plugin-install.php?tab=plugin-information&plugin=<?php echo $slug; ?>&TB_iframe=true&width=600&height=550">instalar/ativar</a> o plugin <?php echo $name; ?></p></div>			
+		<?php }
+	};
+
+	// ex: requireDependencie('FakerPress', 'fakerpress/fakerpress.ho', 'fakerpress')
+
+};
